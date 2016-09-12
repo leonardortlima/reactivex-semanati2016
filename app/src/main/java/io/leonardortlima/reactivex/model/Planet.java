@@ -267,4 +267,20 @@ public class Planet {
             ", url='" + url + '\'' +
             '}';
   }
+
+  public Boolean search(CharSequence search) {
+    String lowerSearch = search.toString().toLowerCase();
+    return name.toLowerCase().contains(lowerSearch) ||
+            rotationPeriod.contains(search) ||
+            orbitalPeriod.contains(search) ||
+            diameter.contains(search) ||
+            climate.contains(search) ||
+            gravity.contains(search) ||
+            terrain.contains(search) ||
+            surfaceWater.contains(search) ||
+            population.contains(search) ||
+            created.contains(search) ||
+            edited.contains(search);
+
+  }
 }

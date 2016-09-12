@@ -10,14 +10,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Rest {
 
-  public static SWAPIService getSWAPIService() {
-    Retrofit retrofit = new Retrofit.Builder()
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://swapi.co/api/")
-            .build();
+    public static SWAPIService getSWAPIService() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("http://swapi.co/api/")
+                .build();
 
-    return retrofit.create(SWAPIService.class);
-  }
+        return retrofit.create(SWAPIService.class);
+    }
 
 }

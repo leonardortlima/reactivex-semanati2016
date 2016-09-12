@@ -6,10 +6,10 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
 
-    //compileOptions {
-    //    sourceCompatibility JavaVersion.VERSION_1_8
-    //    targetCompatibility JavaVersion.VERSION_1_8
-    //}
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         applicationId "io.leonardortlima.reactivex"
@@ -17,6 +17,10 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+
+        jackOptions {
+            enabled true
+        }
     }
     buildTypes {
         release {
@@ -34,13 +38,13 @@ dependencies {
 
     /* Rx */
     compile 'io.reactivex:rxjava:1.1.9'
-    //compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxandroid:1.2.1'
 
     /* RxBindings for android */
     //compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
 
-    //compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    //compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    //compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 }
 

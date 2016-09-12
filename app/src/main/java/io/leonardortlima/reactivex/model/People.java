@@ -282,4 +282,41 @@ public class People {
     this.vehicles = vehicles;
   }
 
+  @Override
+  public String toString() {
+    return "People{" +
+            "birthYear='" + birthYear + '\'' +
+            ", eyeColor='" + eyeColor + '\'' +
+            ", films=" + films +
+            ", gender='" + gender + '\'' +
+            ", hairColor='" + hairColor + '\'' +
+            ", height='" + height + '\'' +
+            ", homeworld='" + homeworld + '\'' +
+            ", mass='" + mass + '\'' +
+            ", name='" + name + '\'' +
+            ", skinColor='" + skinColor + '\'' +
+            ", created='" + created + '\'' +
+            ", edited='" + edited + '\'' +
+            ", species=" + species +
+            ", starships=" + starships +
+            ", url='" + url + '\'' +
+            ", vehicles=" + vehicles +
+            '}';
+  }
+
+  public Boolean search(CharSequence search) {
+    String lowerSearch = search.toString().toLowerCase();
+    return birthYear.toLowerCase().contains(lowerSearch) ||
+            eyeColor.contains(search) ||
+            gender.contains(search) ||
+            hairColor.contains(search) ||
+            height.contains(search) ||
+            homeworld.contains(search) ||
+            mass.contains(search) ||
+            name.contains(search) ||
+            skinColor.contains(search) ||
+            created.contains(search) ||
+            edited.contains(search);
+
+  }
 }
