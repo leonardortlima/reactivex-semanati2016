@@ -11,34 +11,21 @@ import rx.functions.Func1;
 
 public class Observable4Subscriber {
 
-  Callable<Integer> callable = new Callable<Integer>() {
-    @Override
-    public Integer call() throws Exception {
-      throw new Exception("Execution error!");
-    }
+  Callable<Integer> callable = () -> {
+    throw new Exception("Execution error!");
   };
 
   @Test
   public void testError() throws Exception {
 
     Observable.fromCallable(callable)
-            .subscribe(new Action1<Integer>() {
-              @Override
-              public void call(Integer x) {
-                System.out.println(x);
-              }
-            });
+            .subscribe(System.out::println);
   }
 
   @Test
   public void testErrorSubscriber() throws Exception {
     Observable.fromCallable(callable)
-            .doOnError(new Action1<Throwable>() {
-              @Override
-              public void call(Throwable throwable) {
-                System.out.println("call " + throwable.getMessage());
-              }
-            })
+            .doOnError(throwable -> System.out.println("call " + throwable.getMessage()))
             .retry(3)
             .subscribe(new Subscriber<Integer>() {
               @Override

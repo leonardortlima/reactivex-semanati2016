@@ -7,7 +7,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class People {
+public class Person {
 
   @SerializedName("birth_year")
   @Expose
@@ -17,7 +17,7 @@ public class People {
   private String eyeColor;
   @SerializedName("films")
   @Expose
-  private List<String> films = new ArrayList<String>();
+  private List<String> films = new ArrayList<>();
   @SerializedName("gender")
   @Expose
   private String gender;
@@ -282,4 +282,35 @@ public class People {
     this.vehicles = vehicles;
   }
 
+  public String getDetails() {
+    return eyeColor +
+            ", " +
+            gender +
+            ", " +
+            height +
+            ", " +
+            hairColor;
+  }
+
+  @Override
+  public String toString() {
+    return "Person{" +
+            "birthYear='" + birthYear + '\'' +
+            ", eyeColor='" + eyeColor + '\'' +
+            ", films=" + films +
+            ", gender='" + gender + '\'' +
+            ", hairColor='" + hairColor + '\'' +
+            ", height='" + height + '\'' +
+            ", homeworld='" + homeworld + '\'' +
+            ", mass='" + mass + '\'' +
+            ", name='" + name + '\'' +
+            ", skinColor='" + skinColor + '\'' +
+            ", created='" + created + '\'' +
+            ", edited='" + edited + '\'' +
+            ", species=" + species +
+            ", starships=" + starships +
+            ", url='" + url + '\'' +
+            ", vehicles=" + vehicles +
+            '}';
+  }
 }
