@@ -8,9 +8,15 @@ import android.widget.EditText;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import java.util.concurrent.TimeUnit;
+
 import io.leonardortlima.reactivex.model.Person;
+import io.leonardortlima.reactivex.model.SWApiResult;
 import io.leonardortlima.reactivex.rest.Rest;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class SearchActivity extends AppCompatActivity {
@@ -33,5 +39,24 @@ public class SearchActivity extends AppCompatActivity {
     mPersonAdapter = new PersonAdapter();
     mRecyclerView.setAdapter(mPersonAdapter);
 
+    RxTextView.textChanges(mSearchEdit)
+            .filter(charSequence -> charSequence.length() > 3)
+            .debounce(500, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(event -> performSearch(event.toString()));
+
+  }
+
+  private void performSearch(CharSequence search) {
+    mPersonAdapter.clearData();
+
+    ObservableHelper.getPageAndNext(null)
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .flatMap(personSWApiResult -> Observable.from(personSWApiResult.getResults()))
+            .filter(person -> person.getDetails().contains(search))
+            .subscribe(person -> {
+                mPersonAdapter.addPerson(person);
+            });
   }
 }

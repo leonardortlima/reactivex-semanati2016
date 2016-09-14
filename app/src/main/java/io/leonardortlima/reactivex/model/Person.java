@@ -289,7 +289,9 @@ public class Person {
             ", " +
             height +
             ", " +
-            hairColor;
+            hairColor +
+            ", " +
+            name;
   }
 
   @Override

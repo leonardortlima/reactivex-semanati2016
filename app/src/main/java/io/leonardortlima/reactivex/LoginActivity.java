@@ -13,6 +13,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 
+import rx.Observable;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+
 public class LoginActivity extends AppCompatActivity {
 
   private static final String TAG = "LoginActivity";
@@ -51,18 +57,25 @@ public class LoginActivity extends AppCompatActivity {
   private void attemptLogin() {
     showProgress(true);
 
-    boolean result = performLogin(mEmailView.getText(), mPasswordView.getText());
-    showProgress(false);
-    if(result) {
-      goToSearch();
-    }
+    Observable.fromCallable(() -> performLogin(mEmailView.getText(), mPasswordView.getText()))
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Action1<Boolean>() {
+              @Override
+              public void call(Boolean aBoolean) {
+                showProgress(false);
+                if(aBoolean) {
+                  goToSearch();
+                }
+              }
+            });
   }
 
 
   private boolean performLogin(CharSequence username, CharSequence password) {
     try {
       // Simulate network access.
-      Thread.sleep(3000);
+      Thread.sleep(1);
       return true;
     } catch (InterruptedException e) {
       Log.e(TAG, "performLogin: ", e);
